@@ -47,6 +47,7 @@ describe("app", function() {
     testApp.post('3')
     expect(testApp.messages[1].id).to.equal(3)
   });
+
 it("app deletes correctly", function() {
     testApp.post('1')
     testApp.post('2')
@@ -55,6 +56,7 @@ it("app deletes correctly", function() {
     testApp.delete(2)
     expect(testApp.get(1).id).to.equal(1)
   });
+
 it("app updates correctly", function() {
     testApp.post('1')
     testApp.post('2')
@@ -62,4 +64,10 @@ it("app updates correctly", function() {
     testApp.update(2, 'update')
     expect(testApp.get(2).content).to.equal('update')
   });
+
+it("app reads from given filepath", function() {
+    let testFileApp = new MessageApp("/\///json/\//testMessages.json")
+    expect(testFileApp.messages.length).to.equal(1)
+});
+
 });

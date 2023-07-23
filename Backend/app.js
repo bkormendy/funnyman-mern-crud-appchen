@@ -1,3 +1,11 @@
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 //app.js
 function newId(array){
     if (array.length > 0) {
@@ -8,8 +16,9 @@ function newId(array){
   }
 
 class MessageApp {
-    constructor() {
-      this.messages = []
+    constructor(filepath) {
+        this.filepath = filepath
+        this.messages = filepath ? this.readFromJson() : []
     }
     // C
     post(content){
@@ -35,6 +44,14 @@ class MessageApp {
     this.messages = this.messages.filter(message => message.id != id)
     return this.messages
     }
-   }
 
-  export default MessageApp
+   readFromJson(){
+    return JSON.parse(fs.readFileSync(
+      __dirname+path.normalize(this.filepath),"utf8",(err,data)=>{
+      if (err) throw err
+      })
+    )
+   }
+}
+
+export default MessageApp
