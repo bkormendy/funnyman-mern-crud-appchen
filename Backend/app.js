@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,6 +27,7 @@ class MessageApp {
             date: new Date()
         }
         this.messages.push(item)
+        this.writeToJson()
         return this.messages
     }
     // R
@@ -38,10 +38,13 @@ class MessageApp {
     update(id, update){
     let index = this.messages.findIndex(message => message.id === id )
     this.messages[index].content = update
+    this.writeToJson()
+    return this.messages
     }
     // D
     delete(id){
     this.messages = this.messages.filter(message => message.id != id)
+    this.writeToJson()
     return this.messages
     }
 
@@ -51,7 +54,16 @@ class MessageApp {
       if (err) throw err
       })
     )
-   }
+    }
+    
+    writeToJson(){
+        if (this.filepath) {
+        const jsonItem = JSON.stringify(this.messages)
+        fs.writeFileSync(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
+            if (err) throw err;
+        });
+        }
+    }
 }
 
 export default MessageApp
