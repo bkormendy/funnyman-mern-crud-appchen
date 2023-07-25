@@ -1,6 +1,6 @@
 // app.test.js
 import { expect } from "chai";
-import MessageApp from '../lib/model.js'
+import MessageApp from "../lib/model.js"
 
 describe("app", function() {
 
