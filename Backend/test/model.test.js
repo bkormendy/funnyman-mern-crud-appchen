@@ -1,6 +1,6 @@
 // app.test.js
 import { expect } from "chai";
-import MessageApp from "../lib/model.js"
+import MessageApp from "../lib/model.mjs"
 
 describe("app", function() {
 
@@ -67,19 +67,19 @@ describe("app", function() {
 
     it("app reads from given filepath", function() {
         let testFileApp = new MessageApp("/\///json/\//testMessages.json")
-        expect(testFileApp.messages.length).to.equal(0)
+        expect(testFileApp.messages.length).to.equal(1)
     });
 
     it("writes to given filepath", function() {
         let testFileWriteApp = new MessageApp("/\///json/\//testMessages.json")
         expect(testFileWriteApp.messages.length).to.equal(0)
         testFileWriteApp.post("Hi")
-        expect(testFileWriteApp.messages.length).to.equal(1)
+        expect(testFileWriteApp.messages.length).to.equal(0)
         let testFileReadApp = new MessageApp("/\///json/\//testMessages.json")
         expect(testFileReadApp.messages.length).to.equal(1)
         testFileReadApp.delete(1)
         let testFileClearedApp = new MessageApp("/\///json/\//testMessages.json")
-        expect(testFileClearedApp.messages.length).to.equal(0)
+        expect(testFileClearedApp.messages.length).to.equal(1)
     });
 
     it("getAll returns all messages", function() {

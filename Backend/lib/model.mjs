@@ -8,9 +8,9 @@ const __dirname = path.dirname(__filename);
 //app.js, or at least this used to be it
 function newId(array){
     if (array.length > 0) {
-      return array[array.length-1].id + 1;
+        return array[array.length-1].id + 1;
     } else {
-      return 1
+        return 1
     }
   }
 

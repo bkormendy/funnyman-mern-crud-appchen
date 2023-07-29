@@ -1,0 +1,1 @@
+//ez lesz akkor most a model.test.js-ből?
